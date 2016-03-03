@@ -28,7 +28,6 @@ class Main {
             }
 
             boolean[] calender = new boolean[1000001];
-            boolean touch = false;
             boolean conflict = false;
 
             for (int i = 0; i < n; i++) {
@@ -39,20 +38,14 @@ class Main {
                     continue;
                 }
 
-                for (int j = start; j <= end; j++) {
+                for (int j = start; j < end; j++) {
                     if (calender[j]) {
-                        if (touch) {
-                            conflict = true;
-                            break;
-                        } else {
-                            touch = true;
-                        }
+                        conflict = true;
+                        break;
                     } else {
                         calender[j] = true;
-                        touch = false;
                     }
                 }
-
             }
 
             for (int i = 0; i < m; i++) {
@@ -64,26 +57,16 @@ class Main {
                     continue;
                 }
 
-                while (true) {
-                    for (int j = start; j <= end; j++) {
-                        if (j > 1000000) {
-                            break;
-                        }
+                while (start < 1000001) {
+                    for (int j = start; j < end && j < 1000001; j++) {
                         if (calender[j]) {
-                            if (touch) {
-                                conflict = true;
-                                break;
-                            } else {
-                                touch = true;
-                            }
+                            conflict = true;
+                            break;
                         } else {
                             calender[j] = true;
-                            touch = false;
                         }
                     }
-                    if (end > 1000000) {
-                        break;
-                    }
+
                     start += interval;
                     end += interval;
                 }
